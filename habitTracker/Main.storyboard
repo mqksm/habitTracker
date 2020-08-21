@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ymb-TM-0gv">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Habit tracker-->
+        <scene sceneID="ovt-Jh-438">
+            <objects>
+                <tableViewController id="Olb-P6-2lD" customClass="TrackerTableViewController" customModule="habit_tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DE1-qu-bdS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" textLabel="mlh-x2-i6k" detailTextLabel="pLI-FY-Xgc" style="IBUITableViewCellStyleValue1" id="BO5-W3-bB6">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BO5-W3-bB6" id="PPQ-cT-7c8">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mlh-x2-i6k">
+                                            <rect key="frame" x="20" y="12" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pLI-FY-Xgc">
+                                            <rect key="frame" x="350" y="12" width="44" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="oCN-V4-GG1" kind="presentation" identifier="daysCheck" modalPresentationStyle="fullScreen" id="x0n-dy-T7A"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Olb-P6-2lD" id="mnF-Z5-DA6"/>
+                            <outlet property="delegate" destination="Olb-P6-2lD" id="xxe-51-mZH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Habit tracker" id="8df-Mg-0ZO">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="OK1-Fa-aYx"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="2nE-2B-3vL">
+                            <connections>
+                                <action selector="addHabit:" destination="Olb-P6-2lD" id="Hil-bh-lfO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="19X-Dh-sxV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="493" y="165"/>
+        </scene>
+        <!--Tracker Collection View Controller-->
+        <scene sceneID="494-7b-TJP">
+            <objects>
+                <collectionViewController id="9Ew-HP-e5e" customClass="TrackerCollectionViewController" customModule="habit_tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="CUl-oM-G8P">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lqr-X1-AIw">
+                            <size key="itemSize" width="200" height="200"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dayCell" id="isd-cB-eE2" customClass="TrackerCollectionViewCell" customModule="habit_tracker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="p82-JS-6u4">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VfZ-9d-Kfx">
+                                            <rect key="frame" x="0.0" y="0.5" width="200" height="199"/>
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="VfZ-9d-Kfx" firstAttribute="centerX" secondItem="p82-JS-6u4" secondAttribute="centerX" id="37O-Sd-7jO"/>
+                                        <constraint firstItem="VfZ-9d-Kfx" firstAttribute="centerX" secondItem="p82-JS-6u4" secondAttribute="centerX" id="5AW-hh-2p5"/>
+                                        <constraint firstAttribute="bottom" secondItem="VfZ-9d-Kfx" secondAttribute="bottom" id="Ltt-dS-xFv"/>
+                                        <constraint firstItem="VfZ-9d-Kfx" firstAttribute="centerY" secondItem="p82-JS-6u4" secondAttribute="centerY" id="VQ7-AD-mKN"/>
+                                        <constraint firstAttribute="trailing" secondItem="VfZ-9d-Kfx" secondAttribute="trailing" id="fe4-m7-nH9"/>
+                                        <constraint firstItem="VfZ-9d-Kfx" firstAttribute="leading" secondItem="p82-JS-6u4" secondAttribute="leading" id="iET-iV-sbA"/>
+                                        <constraint firstItem="VfZ-9d-Kfx" firstAttribute="top" secondItem="p82-JS-6u4" secondAttribute="top" id="nqR-dZ-Pm1"/>
+                                    </constraints>
+                                </collectionViewCellContentView>
+                                <connections>
+                                    <outlet property="dayImageView" destination="VfZ-9d-Kfx" id="ip2-5q-nWb"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="9Ew-HP-e5e" id="eq5-ie-al6"/>
+                            <outlet property="delegate" destination="9Ew-HP-e5e" id="zZZ-xD-FQ6"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="d9I-eS-ZJi">
+                        <barButtonItem key="leftBarButtonItem" title="Reset" id="Ggk-U5-U1a">
+                            <connections>
+                                <action selector="resetButton:" destination="9Ew-HP-e5e" id="L9D-e9-ZHe"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Zof-f4-1QR">
+                            <connections>
+                                <segue destination="TQr-Vk-6Nf" kind="unwind" unwindAction="unwindSegueWithSegue:" id="IKD-et-BX4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rSE-wE-csU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="TQr-Vk-6Nf" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2205.7971014492755" y="168.75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="aOw-oW-sEo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ymb-TM-0gv" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hVi-4d-xGZ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Olb-P6-2lD" kind="relationship" relationship="rootViewController" id="dEf-Ex-Nrr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rxp-uI-bbf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-249.27536231884059" y="165.40178571428569"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1cJ-4C-aeo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oCN-V4-GG1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="syw-gm-dcd"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lPw-mv-b95">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9Ew-HP-e5e" kind="relationship" relationship="rootViewController" id="qKW-Sb-M0s"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YaG-FY-rsS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1295.6521739130435" y="168.75"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="1.circle" catalog="system" width="128" height="121"/>
+    </resources>
+</document>

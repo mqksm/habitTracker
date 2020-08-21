@@ -9,23 +9,29 @@
 /* Begin PBXBuildFile section */
 		EF14099524EF8D6F00269ADE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF14099424EF8D6F00269ADE /* AppDelegate.swift */; };
 		EF14099724EF8D6F00269ADE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF14099624EF8D6F00269ADE /* SceneDelegate.swift */; };
-		EF14099924EF8D6F00269ADE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF14099824EF8D6F00269ADE /* ViewController.swift */; };
-		EF14099C24EF8D6F00269ADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF14099A24EF8D6F00269ADE /* Main.storyboard */; };
 		EF14099F24EF8D7000269ADE /* habitTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EF14099D24EF8D7000269ADE /* habitTracker.xcdatamodeld */; };
 		EF1409A124EF8D7500269ADE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF1409A024EF8D7500269ADE /* Assets.xcassets */; };
 		EF1409A424EF8D7500269ADE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF1409A224EF8D7500269ADE /* LaunchScreen.storyboard */; };
+		EF1409B124EF8E0800269ADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF1409AB24EF8E0700269ADE /* Main.storyboard */; };
+		EF1409B224EF8E0800269ADE /* TrackerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1409AC24EF8E0700269ADE /* TrackerTableViewController.swift */; };
+		EF1409B324EF8E0800269ADE /* TrackerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1409AD24EF8E0700269ADE /* TrackerCollectionViewController.swift */; };
+		EF1409B424EF8E0800269ADE /* TrackerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1409AE24EF8E0800269ADE /* TrackerCollectionViewCell.swift */; };
+		EF1409B624EF8E0800269ADE /* habitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1409B024EF8E0800269ADE /* habitModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		EF14099124EF8D6F00269ADE /* habitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = habitTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF14099424EF8D6F00269ADE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EF14099624EF8D6F00269ADE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EF14099824EF8D6F00269ADE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EF14099B24EF8D6F00269ADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EF14099E24EF8D7000269ADE /* habitTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = habitTracker.xcdatamodel; sourceTree = "<group>"; };
 		EF1409A024EF8D7500269ADE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF1409A324EF8D7500269ADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF1409A524EF8D7500269ADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF1409AB24EF8E0700269ADE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		EF1409AC24EF8E0700269ADE /* TrackerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerTableViewController.swift; sourceTree = "<group>"; };
+		EF1409AD24EF8E0700269ADE /* TrackerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerCollectionViewController.swift; sourceTree = "<group>"; };
+		EF1409AE24EF8E0800269ADE /* TrackerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerCollectionViewCell.swift; sourceTree = "<group>"; };
+		EF1409B024EF8E0800269ADE /* habitModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = habitModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,10 +64,13 @@
 		EF14099324EF8D6F00269ADE /* habitTracker */ = {
 			isa = PBXGroup;
 			children = (
+				EF1409B024EF8E0800269ADE /* habitModel.swift */,
+				EF1409AB24EF8E0700269ADE /* Main.storyboard */,
+				EF1409AE24EF8E0800269ADE /* TrackerCollectionViewCell.swift */,
+				EF1409AD24EF8E0700269ADE /* TrackerCollectionViewController.swift */,
+				EF1409AC24EF8E0700269ADE /* TrackerTableViewController.swift */,
 				EF14099424EF8D6F00269ADE /* AppDelegate.swift */,
 				EF14099624EF8D6F00269ADE /* SceneDelegate.swift */,
-				EF14099824EF8D6F00269ADE /* ViewController.swift */,
-				EF14099A24EF8D6F00269ADE /* Main.storyboard */,
 				EF1409A024EF8D7500269ADE /* Assets.xcassets */,
 				EF1409A224EF8D7500269ADE /* LaunchScreen.storyboard */,
 				EF1409A524EF8D7500269ADE /* Info.plist */,
@@ -128,9 +137,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF1409B124EF8E0800269ADE /* Main.storyboard in Resources */,
 				EF1409A424EF8D7500269ADE /* LaunchScreen.storyboard in Resources */,
 				EF1409A124EF8D7500269ADE /* Assets.xcassets in Resources */,
-				EF14099C24EF8D6F00269ADE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,7 +150,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF14099924EF8D6F00269ADE /* ViewController.swift in Sources */,
+				EF1409B224EF8E0800269ADE /* TrackerTableViewController.swift in Sources */,
+				EF1409B424EF8E0800269ADE /* TrackerCollectionViewCell.swift in Sources */,
+				EF1409B324EF8E0800269ADE /* TrackerCollectionViewController.swift in Sources */,
+				EF1409B624EF8E0800269ADE /* habitModel.swift in Sources */,
 				EF14099F24EF8D7000269ADE /* habitTracker.xcdatamodeld in Sources */,
 				EF14099524EF8D6F00269ADE /* AppDelegate.swift in Sources */,
 				EF14099724EF8D6F00269ADE /* SceneDelegate.swift in Sources */,
@@ -151,14 +163,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		EF14099A24EF8D6F00269ADE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EF14099B24EF8D6F00269ADE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		EF1409A224EF8D7500269ADE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -298,7 +302,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = example.max.habitTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -316,7 +320,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = example.max.habitTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
