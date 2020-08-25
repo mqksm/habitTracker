@@ -7,35 +7,96 @@
 //
 
 import UIKit
+import CoreData
 
 class TrackerTableViewController: UITableViewController {
     
-    var habits =
-        [
-            Habit(tittle: "Swipe left to delete"),
-            Habit(tittle: "Swipe right to mark done"),
-            Habit(tittle: "3"),
-            Habit(tittle: "4", isDone: true, dayCheck: [true])
-    ]
+    var habits: [Habit] = []
+    
     
     @IBAction func addHabit(_ sender: UIBarButtonItem) {
         let alertContoller = UIAlertController(title: "New habit", message: "Text new habit", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) { action in
             let textField = alertContoller.textFields?.first
             if let newHabit = textField?.text {
-                self.habits.insert(Habit(tittle: newHabit), at: 0)
+                self.saveHabit(withTitle: newHabit)
                 self.tableView.reloadData()
-                
             }
         }
         
         alertContoller.addTextField { _ in }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in }
-        
         alertContoller.addAction(saveAction)
         alertContoller.addAction(cancelAction)
-        
         present(alertContoller, animated: true, completion: nil)
+    }
+    
+    //    private func getDataFromFile() {
+    //        guard let filePath = Bundle.main.path(forResource: "initalData", ofType: "plist"),
+    //            let dataArray = NSArray(contentsOfFile: filePath) else { return }
+    //
+    //        for dict in dataArray {
+    //
+    //        }
+    //    }
+    
+    private func saveHabit(withTitle title: String) {
+        let context = getContext()
+        
+        guard let entity = NSEntityDescription.entity(forEntityName: "Habit", in: context) else { return }
+        
+        let habitObject = Habit(entity: entity, insertInto: context)
+        habitObject.title = title
+        habitObject.isDone = false
+        habitObject.daysCheck = Array(repeating: false, count: 30)
+        habitObject.order = Int16(habits.count)
+        
+        do {
+            try context.save()
+            habits.insert(habitObject, at: 0)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
+    
+    @IBAction func clearButtonTapped(_ sender: UIBarButtonItem) {
+        let context = getContext()
+        let fetchRequest: NSFetchRequest<Habit> = Habit.fetchRequest()
+        if let objects = try? context.fetch(fetchRequest) {
+            for object in objects {
+                context.delete(object)
+            }
+        }
+        
+        do {
+            try context.save()
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        habits = []
+        tableView.reloadData()
+        
+    }
+    
+    
+    private func getContext() -> NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.persistentContainer.viewContext
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let context = getContext()
+        let fetchRequest: NSFetchRequest<Habit> = Habit.fetchRequest()
+        let orderSort = NSSortDescriptor(key: "order", ascending: false)
+        fetchRequest.sortDescriptors = [orderSort]
+        
+        do {
+            habits = try context.fetch(fetchRequest)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
     }
     
     
@@ -60,11 +121,17 @@ class TrackerTableViewController: UITableViewController {
         let navigationVC = segue.destination as! UINavigationController
         let newTaskVC = navigationVC.topViewController as! TrackerCollectionViewController
         newTaskVC.habit = habit
-        newTaskVC.title = habit.tittle
+        newTaskVC.title = habit.title
     }
     
     @IBAction func unwindSegue(segue: UIStoryboardSegue) {
-        //        guard segue.identifier == "doneSegue" else { return }
+        guard segue.identifier == "Done action" else { return }
+        let context = getContext()
+        do {
+            try context.save()
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
         tableView.reloadData()
         
         
@@ -87,7 +154,7 @@ class TrackerTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        cell.textLabel?.text = habits[indexPath.row].tittle
+        cell.textLabel?.text = habits[indexPath.row].title
         
         
         if habits[indexPath.row].isDone == true {
@@ -99,8 +166,10 @@ class TrackerTableViewController: UITableViewController {
             cell.imageView?.image = UIImage(systemName: "circle")
         }
         
-        cell.detailTextLabel?.text = String(habits[indexPath.row].dayCheck.filter{$0 == true}.count) + "/30"
-
+        if let currentDaysCheck = habits[indexPath.row].daysCheck {
+            cell.detailTextLabel?.text = String(currentDaysCheck.filter{$0 == true}.count) + "/30"
+        }
+        
         return cell
     }
     
@@ -109,13 +178,6 @@ class TrackerTableViewController: UITableViewController {
         return .delete
     }
     
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            habits.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
     
     
     // Override to support conditional rearranging of the table view.
@@ -128,16 +190,41 @@ class TrackerTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let movedData = habits.remove(at: sourceIndexPath.row)
         habits.insert(movedData, at: destinationIndexPath.row)
-        tableView.reloadData()
+        
+        //пробегаем по всему массиву, каждому объекту в order проставляем тот индекс, который они имеют после перемещения нужного объекта
+        for (index, object) in habits.enumerated() {
+            object.order = Int16(index)
+        }
+        
+        let context = getContext()
+        do {
+            try context.save()
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
     }
     
     
     
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
-            self?.habits.remove(at: indexPath.row)
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completion in
+            
+            let context = self.getContext()
+            context.delete(self.habits[indexPath.row])
+            self.habits.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            
+            for (index, object) in self.habits.enumerated() {
+                object.order = Int16(index)
+            }
+            
+            do {
+                try context.save()
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
@@ -152,15 +239,11 @@ class TrackerTableViewController: UITableViewController {
         let action = UIContextualAction(style: .normal, title: "Done") { (action, view, completion) in
             self.habits[indexPath.row].isDone = !self.habits[indexPath.row].isDone
             
-            if self.habits[indexPath.row].isDone {
-                
-                let movedData = self.habits.remove(at: indexPath.row)
-                self.habits.append(movedData)
-                
-            }
-            else {
-                let movedData = self.habits.remove(at: indexPath.row)
-                self.habits.insert(movedData, at: 0)
+            let context = self.getContext()
+            do {
+                try context.save()
+            } catch let error as NSError {
+                print(error.localizedDescription)
             }
             self.tableView.reloadData()
         }

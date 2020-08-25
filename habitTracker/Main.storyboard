@@ -10,7 +10,7 @@
         <!--Habit tracker-->
         <scene sceneID="ovt-Jh-438">
             <objects>
-                <tableViewController id="Olb-P6-2lD" customClass="TrackerTableViewController" customModule="habit_tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Olb-P6-2lD" customClass="TrackerTableViewController" customModule="habitTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DE1-qu-bdS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -50,7 +50,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Habit tracker" id="8df-Mg-0ZO">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="OK1-Fa-aYx"/>
+                        <leftBarButtonItems>
+                            <barButtonItem systemItem="edit" id="OK1-Fa-aYx"/>
+                            <barButtonItem title="Clear" id="XIp-sz-EE0">
+                                <connections>
+                                    <action selector="clearButtonTapped:" destination="Olb-P6-2lD" id="vX8-Gb-Slw"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="2nE-2B-3vL">
                             <connections>
                                 <action selector="addHabit:" destination="Olb-P6-2lD" id="Hil-bh-lfO"/>
@@ -65,7 +72,7 @@
         <!--Tracker Collection View Controller-->
         <scene sceneID="494-7b-TJP">
             <objects>
-                <collectionViewController id="9Ew-HP-e5e" customClass="TrackerCollectionViewController" customModule="habit_tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="9Ew-HP-e5e" customClass="TrackerCollectionViewController" customModule="habitTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="CUl-oM-G8P">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -77,7 +84,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dayCell" id="isd-cB-eE2" customClass="TrackerCollectionViewCell" customModule="habit_tracker" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dayCell" id="isd-cB-eE2" customClass="TrackerCollectionViewCell" customModule="habitTracker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="p82-JS-6u4">
@@ -117,7 +124,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Zof-f4-1QR">
                             <connections>
-                                <segue destination="TQr-Vk-6Nf" kind="unwind" unwindAction="unwindSegueWithSegue:" id="IKD-et-BX4"/>
+                                <segue destination="TQr-Vk-6Nf" kind="unwind" identifier="Done action" unwindAction="unwindSegueWithSegue:" id="aoN-cN-2AF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

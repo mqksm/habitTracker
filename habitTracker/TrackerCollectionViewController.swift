@@ -7,22 +7,21 @@
 //
 
 import UIKit
-
-//private let reuseIdentifier = "daysCell"
+import CoreData
 
 class TrackerCollectionViewController: UICollectionViewController {
     
-    //    var habit:Habit?
-    var habit = Habit(tittle: "")
+    var habit: Habit!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayoutSettings()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {  }
     
     @IBAction func resetButton(_ sender: UIBarButtonItem) {
-        habit.dayCheck = Array(repeating: false, count: 30)
+        habit.daysCheck = Array(repeating: false, count: 30)
         collectionView.reloadData()
     }
     
@@ -49,32 +48,24 @@ class TrackerCollectionViewController: UICollectionViewController {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        return habit?.dayCheck.count ?? 0
-        return habit.dayCheck.count
+        return habit.daysCheck?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dayCell", for: indexPath) as! TrackerCollectionViewCell
         
-        //        guard let habit = habit else { return cell }
-        if habit.dayCheck[indexPath.row] {
+        guard let cellHabit = habit else { return cell }
+        if ((cellHabit.daysCheck?[indexPath.row]) == true) {
             cell.dayImageView.image = UIImage(systemName: String(indexPath.row + 1) + ".circle.fill")
         }
         else {
             cell.dayImageView.image = UIImage(systemName: String(indexPath.row + 1) + ".circle")
         }
-        
-        
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //        habit?.dayCheck[indexPath.row] = !(habit?.dayCheck[indexPath.row])!
-        habit.dayCheck[indexPath.row] = !habit.dayCheck[indexPath.row]
-        
-        
-        collectionView.reloadData()
-        
-        
+        habit.daysCheck?[indexPath.row] = !(habit.daysCheck?[indexPath.row] ?? true)
+        collectionView.reloadData() 
     }
 }
