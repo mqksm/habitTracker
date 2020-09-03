@@ -13,7 +13,6 @@ class TrackerTableViewController: UITableViewController {
     
     var habits: [Habit] = []
     
-    
     @IBAction func addHabit(_ sender: UIBarButtonItem) {
         let alertContoller = UIAlertController(title: "New habit", message: "Text new habit", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) { action in
@@ -31,14 +30,28 @@ class TrackerTableViewController: UITableViewController {
         present(alertContoller, animated: true, completion: nil)
     }
     
-    //    private func getDataFromFile() {
-    //        guard let filePath = Bundle.main.path(forResource: "initalData", ofType: "plist"),
-    //            let dataArray = NSArray(contentsOfFile: filePath) else { return }
-    //
-    //        for dict in dataArray {
-    //
-    //        }
-    //    }
+        private func getDataFromFile() {
+            let context = getContext()
+
+                guard let filePath = Bundle.main.path(forResource: "initalData", ofType: "plist"),
+            let dataArray = NSArray(contentsOfFile: filePath) else { return }
+            
+            for dict in dataArray {
+                let initalHabit: Habit = Habit(context: context)
+                let habitDictionary = dict as! [String : AnyObject]
+                initalHabit.title = habitDictionary["title"] as? String
+                initalHabit.isDone = habitDictionary["isDone"] as? Bool ?? false
+                initalHabit.order = habitDictionary["order"] as! Int16
+                initalHabit.daysCheck = habitDictionary["daysCheck"] as? [Bool]
+                
+                habits.append(initalHabit)
+                do {
+                    try context.save()
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            }
+    }
     
     private func saveHabit(withTitle title: String) {
         let context = getContext()
@@ -53,7 +66,7 @@ class TrackerTableViewController: UITableViewController {
         
         do {
             try context.save()
-            habits.insert(habitObject, at: 0)
+            habits.append(habitObject)
         } catch let error as NSError {
             print(error.localizedDescription)
         }
@@ -89,7 +102,7 @@ class TrackerTableViewController: UITableViewController {
         
         let context = getContext()
         let fetchRequest: NSFetchRequest<Habit> = Habit.fetchRequest()
-        let orderSort = NSSortDescriptor(key: "order", ascending: false)
+        let orderSort = NSSortDescriptor(key: "order", ascending: true)
         fetchRequest.sortDescriptors = [orderSort]
         
         do {
@@ -102,15 +115,9 @@ class TrackerTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        checkIfAppAlreadyLaunched()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         tableView.tableFooterView = UIView() // убираем нижние ячейки
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -133,9 +140,6 @@ class TrackerTableViewController: UITableViewController {
             print(error.localizedDescription)
         }
         tableView.reloadData()
-        
-        
-        // Use data from the view controller which initiated the unwind segue
     }
     
     // MARK: - Table view data source
@@ -155,8 +159,6 @@ class TrackerTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         cell.textLabel?.text = habits[indexPath.row].title
-        
-        
         if habits[indexPath.row].isDone == true {
             cell.imageView?.image = .checkmark
             cell.textLabel?.alpha = 0.5
@@ -169,7 +171,6 @@ class TrackerTableViewController: UITableViewController {
         if let currentDaysCheck = habits[indexPath.row].daysCheck {
             cell.detailTextLabel?.text = String(currentDaysCheck.filter{$0 == true}.count) + "/30"
         }
-        
         return cell
     }
     
@@ -250,4 +251,15 @@ class TrackerTableViewController: UITableViewController {
         action.backgroundColor = UIColor.blue
         return action
     }
+    
+    func checkIfAppAlreadyLaunched(){
+        let defaults = UserDefaults.standard
+        if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce"){
+        }
+        else{
+            defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
+            getDataFromFile()
+        }
+    }
+    
 }

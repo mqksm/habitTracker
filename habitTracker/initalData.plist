@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>item 0</key>
+<array>
 	<dict>
 		<key>title</key>
 		<string>Tap to open</string>
@@ -42,9 +41,8 @@
 			<false/>
 		</array>
 		<key>order</key>
-		<integer>0</integer>
+		<integer>2</integer>
 	</dict>
-	<key>item 1</key>
 	<dict>
 		<key>title</key>
 		<string>Swipe left to delete</string>
@@ -86,7 +84,6 @@
 		<key>order</key>
 		<integer>1</integer>
 	</dict>
-	<key>item 2</key>
 	<dict>
 		<key>title</key>
 		<string>Swipe right to mark done</string>
@@ -126,7 +123,7 @@
 			<true/>
 		</array>
 		<key>order</key>
-		<integer>2</integer>
+		<integer>0</integer>
 	</dict>
-</dict>
+</array>
 </plist>
